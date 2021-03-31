@@ -2,21 +2,24 @@ const getReposQuery = {
     query: `
     {
         viewer {
-            name
-            repositories(first: 15) {
-            totalCount
+          login
+        }
+        search(query: "user:dgaisan", type: REPOSITORY, first: 15) {
+            repositoryCount
             nodes {
-                id
-                name
-                url
-                description
-                createdAt
-            }
+                ... on Repository {
+                    id
+                    name
+                    url
+                    createdAt
+                    description
+                    licenseInfo {
+                        spdxId
+                    }
+                }
             }
         }
-          
-    }
-    `
+    }`
 };
 
 export default getReposQuery;
